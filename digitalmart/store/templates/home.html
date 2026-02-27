@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Marketplace</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+
+
+  <style>
+        body{
+            font-family: 'Poppins', sans-serif;
+            background:#f5f7fb;
+        }
+
+        .navbar-custom{
+            background:#111;
+            padding:15px;
+            border-radius:12px;
+        }
+
+        .navbar-custom a{
+            color:white;
+            margin-right:15px;
+            text-decoration:none;
+            font-weight:500;
+        }
+
+        .navbar-custom a:hover{
+            color:#0d6efd;
+        }
+
+        .card{
+            border:none;
+            border-radius:18px;
+            transition:.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-6px);
+            box-shadow:0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .card img{
+            border-radius:18px 18px 0 0;
+            height:220px;
+            object-fit:cover;
+        }
+
+        .search-box{
+            border-radius:50px;
+            padding:12px 20px;
+        }
+
+        .btn-buy{
+            border-radius:50px;
+            padding:8px 18px;
+        }
+    </style>
+</head>
+<style>
+
+.avatar{
+width:40px;
+height:40px;
+border-radius:50%;
+object-fit:cover;
+border:2px solid #6c63ff;
+}
+
+.profile-menu{
+border-radius:15px;
+padding:15px;
+width:230px;
+animation:fadeSlide .25s ease;
+}
+
+@keyframes fadeSlide{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.profile-btn{
+cursor:pointer;
+}
+
+.footer{
+background:linear-gradient(135deg,#0a0a0a,#1c1c2b);
+color:white;
+border-radius:25px 25px 0 0;
+box-shadow:0 -5px 40px rgba(0,0,0,0.4);
+}
+
+.brand{
+font-weight:700;
+letter-spacing:1px;
+background:linear-gradient(45deg,#6a5cff,#00d4ff);
+/* -webkit-background-clip:text; */
+-webkit-text-fill-color:transparent;
+}
+
+.footer-title{
+font-weight:600;
+margin-bottom:15px;
+}
+
+.footer-text{
+color:#aaa;
+font-size:14px;
+}
+
+.footer-link{
+display:block;
+color:#aaa;
+text-decoration:none;
+margin-bottom:6px;
+transition:.3s;
+}
+
+.footer-link:hover{
+color:#fff;
+transform:translateX(5px);
+}
+
+.socials span{
+margin-right:12px;
+font-size:18px;
+cursor:pointer;
+transition:.3s;
+}
+
+.socials span:hover{
+transform:scale(1.2);
+}
+
+.newsletter-box{
+display:flex;
+background:#111;
+border-radius:50px;
+overflow:hidden;
+border:1px solid #333;
+}
+
+.newsletter-box input{
+flex:1;
+background:transparent;
+border:none;
+padding:10px 15px;
+color:white;
+outline:none;
+}
+
+.newsletter-box button{
+background:linear-gradient(45deg,#6a5cff,#00d4ff);
+border:none;
+color:white;
+padding:10px 20px;
+font-weight:600;
+}
+
+.footer-line{
+border-color:#333;
+margin:40px 0 20px;
+}
+
+.bottom-bar{
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+color:#888;
+font-size:14px;
+}
+
+.mini-text{
+font-size:12px;
+color:#777;
+}
+
+.card:hover{
+box-shadow:0 15px 40px rgba(0,0,0,0.25),
+0 0 15px rgba(106,92,255,0.6);
+}
+
+
+.navbar-custom{
+backdrop-filter: blur(12px);
+background: rgba(0,0,0,0.7);
+border-radius:14px;
+padding:15px 25px;
+box-shadow:0 8px 30px rgba(0,0,0,0.4);
+animation: slideDown .6s ease;
+}
+
+@keyframes slideDown{
+from{transform:translateY(-30px);opacity:0}
+to{transform:translateY(0);opacity:1}
+}
+
+
+.floating-cart{
+position:fixed;
+bottom:25px;
+right:25px;
+background:linear-gradient(45deg,#6a5cff,#00d4ff);
+color:white;
+font-size:22px;
+padding:15px 18px;
+border-radius:50%;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+z-index:999;
+transition:.3s;
+text-decoration:none;
+}
+.floating-cart:hover{
+transform:scale(1.1) rotate(8deg);
+}
+
+.ai-search{
+border-radius:50px;
+padding:14px 22px;
+border:2px solid transparent;
+background:
+linear-gradient(#fff,#fff) padding-box,
+linear-gradient(45deg,#6a5cff,#00d4ff) border-box;
+transition:.3s;
+}
+
+.ai-search:focus{
+outline:none;
+box-shadow:0 0 15px rgba(106,92,255,0.6);
+}
+
+.theme-btn{
+background:#111;
+color:white;
+border:none;
+padding:6px 12px;
+border-radius:20px;
+}
+.light-mode{
+background:#f4f7fb !important;
+color:#111 !important;
+}
+
+</style>
+
+<body class="container mt-4">
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-dark bg-dark px-4 py-3 d-flex justify-content-between rounded-4">
+
+<div class="text-white">
+Welcome <b>{{ user.username }}</b>
+</div>
+
+<div class="d-flex align-items-center gap-4">
+
+<a href="/orders/" class="text-white text-decoration-none">Orders</a>
+<a href="/cart/" class="text-white text-decoration-none">Cart</a>
+
+<!-- NOTIFICATIONS -->
+<a href="{% url 'notifications' %}" class="text-white position-relative">
+
+🔔
+
+{% if notifications_count > 0 %}
+<span class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+{{ notifications_count }}
+</span>
+{% endif %}
+
+</a>
+
+<!-- PROFILE DROPDOWN -->
+<div class="dropdown">
+
+<div class="d-flex align-items-center gap-2 text-white dropdown-toggle profile-btn"
+     data-bs-toggle="dropdown">
+
+<img src="{{ profile.image.url }}" class="avatar">
+
+{{ user.username }}
+
+</div>
+
+<div class="dropdown-menu dropdown-menu-end profile-menu shadow">
+
+<p><b>Balance:</b> ${{ profile.balance }}</p>
+<p>Messages (1)</p>
+<p>Favorites</p>
+<a href="{% url 'profile' %}">profile</a>
+<a href="{% url 'upload_photo' %}">Change Photo</a>
+<hr>
+<a href="/logout/" class="text-danger">Logout</a>
+
+</div>
+
+</div>
+</div>
+</nav>
+
+<!-- LOGIN MODAL -->
+<div class="modal fade" id="loginModal">
+  <div class="modal-dialog">
+    <div class="modal-content p-4">
+
+      <h4 class="mb-3">Login</h4>
+
+      <form id="loginForm">
+        {% csrf_token %}
+
+        <input name="username" class="form-control mb-2" placeholder="Username">
+        <input name="password" type="password" class="form-control mb-3" placeholder="Password">
+
+        <label>
+          <input type="checkbox" name="remember"> Remember me
+        </label>
+
+        <button class="btn btn-primary w-100 mt-2">Login</button>
+      </form>
+
+      <div id="loginError" class="text-danger mt-2"></div>
+
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER MODAL -->
+<form method="POST" action="/register/">
+{% csrf_token %}
+{% if register_form.errors %}
+<div class="alert alert-danger">
+    {% for field in register_form %}
+        {% for error in field.errors %}
+            <div>{{ error }}</div>
+        {% endfor %}
+  
+
+
+<input type="text" name="username" placeholder="Username"
+class="form-control mb-2" required>
+
+<input type="password" name="password1" placeholder="Password"
+class="form-control mb-2" required>
+
+<input type="password" name="password2" placeholder="Confirm Password"
+class="form-control mb-3" required>
+
+<button class="btn btn-success w-100">Create Account</button>
+
+  {% endfor %}
+</div>
+{% endif %}
+</form>
+
+
+<!-- <nav class="mb-4">
+
+    {% if user.is_authenticated %}
+        Welcome <b>{{ user.username }}</b> |
+        <a href="/orders/">Orders</a> |
+        <a href="/cart/">Cart</a> |
+        <a href="/logout/">Logout</a>
+        <a href="{% url 'sell_product' %}">Sell</a>
+        <a href="{% url 'notifications' %}">Notifications</a>
+        <a href="{% url 'seller_dashboard' %}">Dashboard</a> |
+    {% else %}
+        <a href="/login/">Login</a> |
+        <a href="/register/">Register</a>
+    {% endif %}
+
+</nav> -->
+
+
+<!-- SEARCH BAR -->
+
+<form method="GET" class="text-center mb-4">
+    <input type="text" name="q" placeholder="Search products..." 
+           class="form-control search-box w-50 d-inline">
+    <button class="btn btn-dark btn-buy">Search</button>
+</form>
+
+<input type="text" name="q" class="ai-search">
+
+
+<!-- <form method="GET" class="mb-3">
+    <input type="text" name="q" placeholder="Search products..." class="form-control w-50 d-inline">
+    <button type="submit" class="btn btn-primary">Search</button>
+</form> -->
+
+<h2 class="mb-3 fw-bold">🔥 Latest Products</h2>
+<!-- CATEGORY FILTER -->
+<h5>Categories</h5>
+
+<div class="mb-4">
+    <a href="/" class="btn btn-outline-dark btn-sm">All</a>
+
+    {% for cat in categories %}
+        <a href="/?category={{ cat }}" class="btn btn-outline-secondary btn-sm">
+            {{ cat }}
+        </a>
+    {% endfor %}
+</div>
+
+
+<!-- PRODUCTS GRID -->
+<div class="row">
+
+{% for product in products %}
+<div class="col-md-4">
+
+<div class="card mb-4 shadow-sm">
+
+<div class="card-body text-center">
+
+    {% if product.image %}
+<img src="{{ product.image.url }}" class="card-img-top" style="height:200px; object-fit:cover;">
+{% endif %}
+
+<h5 class="card-title">
+<a href="{% url 'product_detail' product.id %}">
+{{ product.title }}
+</a>
+</h5>
+
+<p class="card-text">{{ product.description }}</p>
+
+<p><strong>${{ product.price }}</strong></p>
+<p>Stock: {{ product.stock }}</p>
+<!-- <a href="{% url 'add_to_cart' product.id %}" class="btn btn-dark">
+Buy Now
+</a> -->
+
+{% if product.stock > 0 %}
+<a href="{% url 'add_to_cart' product.id %}" class="btn btn-dark">
+Buy Now
+</a>
+{% else %}
+<span class="badge bg-danger">Out of Stock</span>
+{% endif %}
+
+</div>
+</div>
+
+</div>
+{% endfor %}
+
+</div>
+
+<footer class="footer mt-5">
+
+<div class="container py-5">
+
+<div class="row gy-4">
+
+<!-- BRAND -->
+<div class="col-md-4">
+<h3 class="brand">DigitalMart</h3>
+<p class="footer-text">
+Secure marketplace for buying and selling digital products.
+Fast. Safe. Trusted.
+</p>
+
+<div class="socials mt-3">
+<span>🌐</span>
+<span>📱</span>
+<span>💬</span>
+<span>📧</span>
+</div>
+</div>
+
+<!-- LINKS -->
+<div class="col-md-2">
+<h6 class="footer-title">Company</h6>
+<a href="{% url 'about' %}" class="footer-link">About</a>
+<a href="{% url 'contact' %}" class="footer-link">Contact</a>
+<a href="{% url 'support' %}" class="footer-link">Support</a>
+<a href="{% url 'careers' %}" class="footer-link">Careers</a>
+</div>
+<!-- MARKET -->
+<div class="col-md-3">
+<h6 class="footer-title">Marketplace</h6>
+<a href="{% url 'about' %}" class="footer-link">About</a>
+<a href="{% url 'contact' %}" class="footer-link">Contact</a>
+<a href="{% url 'support' %}" class="footer-link">Support</a>
+<a href="{% url 'careers' %}" class="footer-link">Careers</a>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="col-md-3">
+<h6 class="footer-title">Join Newsletter</h6>
+
+<div class="newsletter-box">
+<input placeholder="Enter email">
+<button>Join</button>
+</div>
+
+<p class="mini-text mt-2">Get updates & offers</p>
+</div>
+
+</div>
+
+<hr class="footer-line">
+
+<div class="bottom-bar">
+
+<span>© 2026 DigitalMart — All rights reserved</span>
+
+<div>
+<a href="#" class="footer-link small">Terms</a>
+<a href="#" class="footer-link small">Privacy</a>
+</div>
+
+</div>
+
+</div>
+</footer>
+
+
+
+
+
+
+
+
+<script>
+function toggleTheme(){
+document.body.classList.toggle("light-mode");
+}
+</script>
+<script>
+document.addEventListener("input",function(e){
+    if(e.target.name==="password1"){
+        let p=e.target.value;
+        let s=document.getElementById("strength");
+
+        if(p.length<6)s.innerHTML="Weak";
+        else if(/[A-Z]/.test(p)&&/\d/.test(p))s.innerHTML="Strong";
+        else s.innerHTML="Medium";
+    }
+});
+</script>
+<script>
+document.getElementById("loginForm").onsubmit = async function(e){
+    e.preventDefault();
+
+    let form = e.target;
+    let data = new FormData(form);
+
+    let res = await fetch("{% url 'login' %}",{
+        method:"POST",
+        body:data,
+        headers:{
+            "X-Requested-With":"XMLHttpRequest"
+        }
+    });
+
+    let result = await res.json();
+
+    if(result.success){
+        location.reload();
+    }else{
+        document.getElementById("loginError").innerText = result.error;
+    }
+}
+</script>
+{% if messages %}
+<script>
+var modal = new bootstrap.Modal(document.getElementById('loginModal'));
+modal.show();
+</script>
+{% endif %}
+{% for message in messages %}
+<div class="alert alert-danger">{{ message }}</div>
+{% endfor %}
+<!-- {% if register_form.errors %}
+<div class="alert alert-danger">
+    {% for field in register_form %}
+        {% for error in field.errors %}
+            <div>{{ error }}</div>
+        {% endfor %}
+    {% endfor %}
+</div>
+{% endif %} -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

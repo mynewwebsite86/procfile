@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Seller Dashboard</h2>
+
+<p>Total Sales: {{ total_sales }}</p>
+<p>Total Earnings: ${{ total_earnings }}</p>
+
+<h3>Your Products</h3>
+{% for product in products %}
+    <p>{{ product.title }} — ${{ product.price }}</p>
+{% empty %}
+    <p>No products listed</p>
+{% endfor %}
+
+<h3>Orders Received</h3>
+{% for order in orders %}
+    <p>{{ order.product.title }} — Qty: {{ order.quantity }}</p>
+{% empty %}
+    <p>No orders yet</p>
+{% endfor %}
+
+<a href="{% url 'withdraw' %}">Withdraw Money</a>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<canvas id="salesChart"></canvas>
+
+{{ labels|json_script:"labels-data" }}
+{{ data|json_script:"data-values" }}
+
+<script>
+const labels = JSON.parse(document.getElementById('labels-data').textContent);
+const data = JSON.parse(document.getElementById('data-values').textContent);
+
+const ctx = document.getElementById('salesChart');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Earnings',
+            data: data
+        }]
+    }
+});
+</script>
+</body>
+</html>

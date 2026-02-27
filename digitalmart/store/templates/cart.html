@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+{% for item in items %}
+<div style="border:1px solid black; margin:10px; padding:10px;">
+    <h2>{{ item.product.title }}</h2>
+    <a href="{% url 'decrease_qty' item.id %}"><button>-</button></a>
+<strong>{{ item.quantity }}</strong>
+<a href="{% url 'increase_qty' item.id %}"><button>+</button></a>
+    <p>Price: ${{ item.product.price }}</p>
+
+    <a href="{% url 'remove_item' item.id %}">
+        <button>Remove</button>
+    </a>
+    <a href="{% url 'payment' %}">
+    <button>Proceed to Payment</button>
+</a>
+</div>
+{% endfor %}
+
+</body>
+</html>

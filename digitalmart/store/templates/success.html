@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Payment Successful 🎉</h1>
+
+<p>Order ID: {{ order.id }}</p>
+
+<h3>Your Purchased Details:</h3>
+
+{% for item in order.orderitem_set.all %}
+    <div style="border:1px solid black; padding:10px; margin:10px;">
+        <h4>{{ item.product.title }}</h4>
+        <p>{{ item.product.delivery_info }}</p>
+    </div>
+{% empty %}
+<p>No delivery items found</p>
+{% endfor %}
+
+<a href="/">Back to Store</a>
+</body>
+</html>

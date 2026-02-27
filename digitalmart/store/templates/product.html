@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{ product.title }}</h1>
+<p>Seller: {{ product.seller.username }}</p>
+<p>{{ product.description }}</p>
+
+<h3>Price: ${{ product.price }}</h3>
+
+<a href="{% url 'add_to_cart' product.id %}">
+<button>Buy Now</button>
+</a>
+
+<br><br>
+<a href="/">Back</a>
+
+<h3>Reviews</h3>
+
+{% for review in product.review_set.all %}
+    <p><b>{{ review.user.username }}</b> ⭐ {{ review.rating }}</p>
+    <p>{{ review.comment }}</p>
+{% empty %}
+    <p>No reviews yet</p>
+{% endfor %}
+
+<a href="{% url 'add_review' product.id %}">Write Review</a>
+</body>
+</html>
